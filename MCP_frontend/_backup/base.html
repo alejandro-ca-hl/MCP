@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Elite Agent Selection Matrix</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700&amp;display=swap"
+        rel="stylesheet" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap"
+        rel="stylesheet" />
+    <style type="text/tailwindcss">
+        :root {
+            --midnight-navy: #0A1128;
+            --deep-indigo: #1B2735;
+            --electric-cyan: #00D2FF;
+            --silver-mist: #E0E0E0;
+            --deep-violet: #3F3D56;
+        }
+        @layer base {
+            body {
+                background: radial-gradient(circle at top left, var(--deep-indigo) 0%, var(--midnight-navy) 100%);
+                font-family: "Plus Jakarta Sans", sans-serif;
+                color: var(--silver-mist);
+                overflow: hidden;
+            }
+        }
+        .glass-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(224, 224, 224, 0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(0, 210, 255, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 
+                        0 0 20px rgba(0, 210, 255, 0.1);
+        }
+        .glass-card:hover .card-icon {
+            color: var(--electric-cyan);
+            filter: drop-shadow(0 0 8px rgba(0, 210, 255, 0.4));
+        }
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: var(--electric-cyan);
+            box-shadow: 0 0 10px 2px var(--electric-cyan);
+        }
+        .nav-link.active {
+            color: #fff;
+            text-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+        }
+        .matrix-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            max-width: 900px;
+            width: 100%;
+        }
+        .square-aspect {
+            aspect-ratio: 1 / 1;
+        }
+        .halo {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60%;
+            height: 60%;
+            background: radial-gradient(circle, rgba(0, 210, 255, 0.05) 0%, transparent 70%);
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+</head>
+
+<body class="h-screen flex flex-col">
+    <header class="w-full h-24 flex items-center justify-center relative z-50">
+        <nav class="flex items-center gap-16">
+            <a class="nav-link text-xs font-bold uppercase tracking-[0.3em] text-[var(--silver-mist)]/60 hover:text-[var(--silver-mist)]"
+                href="#">Biblioteca</a>
+            <a class="nav-link active text-xs font-bold uppercase tracking-[0.3em] text-[var(--silver-mist)]"
+                href="#">Sandbox</a>
+            <a class="nav-link text-xs font-bold uppercase tracking-[0.3em] text-[var(--silver-mist)]/60 hover:text-[var(--silver-mist)]"
+                href="#">Configuración</a>
+        </nav>
+        <div class="absolute right-12 flex items-center gap-6 opacity-40">
+            <div class="text-[10px] tracking-[0.2em] font-medium text-[var(--silver-mist)]">SYSTEM ACTIVE</div>
+            <div class="size-1 rounded-full bg-[var(--electric-cyan)] shadow-[0_0_8px_var(--electric-cyan)]"></div>
+        </div>
+    </header>
+    <main class="flex-1 flex items-center justify-center p-12">
+        <div class="matrix-grid">
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">gavel</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">JURIS
+                    AI</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">health_metrics</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">MEDICORE</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer border-[var(--electric-cyan)]/30">
+                <div class="halo opacity-100"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--electric-cyan)] transition-all duration-500">architecture</span>
+                <span class="text-[10px] font-bold tracking-[0.4em] text-white transition-colors">STRUCTURA</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">hub</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">NEXUS</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">insights</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">OPTIMA</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">cloud_done</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">AETHER</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">polyline</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">VERTEX</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">database</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">CORE
+                    01</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">shield_lock</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">SENTINEL</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">waves</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">FLUX</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">cyclone</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">QUANTUM</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">public</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">ATLAS</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">memory</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">TITAN</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">visibility</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">ORACLE</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">terminal</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">CYPHER</span>
+            </div>
+            <div
+                class="glass-card square-aspect rounded-2xl flex flex-col items-center justify-between p-8 group cursor-pointer">
+                <div class="halo group-hover:opacity-100 transition-opacity opacity-0"></div>
+                <span
+                    class="material-symbols-outlined card-icon text-4xl text-[var(--silver-mist)] transition-all duration-500">diamond</span>
+                <span
+                    class="text-[10px] font-bold tracking-[0.4em] text-[var(--silver-mist)] group-hover:text-white transition-colors">PRIME</span>
+            </div>
+        </div>
+    </main>
+    <div class="fixed inset-0 pointer-events-none -z-10">
+        <div class="absolute bottom-0 w-full h-1/3 bg-gradient-to-t from-[var(--deep-violet)]/10 to-transparent"></div>
+        <div class="absolute inset-0 opacity-[0.02]"
+            style="background-image: linear-gradient(#E0E0E0 1px, transparent 1px), linear-gradient(90deg, #E0E0E0 1px, transparent 1px); background-size: 80px 80px;">
+        </div>
+    </div>
+
+</body>
+
+</html>

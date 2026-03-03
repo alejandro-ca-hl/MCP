@@ -1,0 +1,120 @@
+@import "tailwindcss";
+
+:root {
+    --midnight-navy: #0A1128;
+    --deep-indigo: #1B2735;
+    --electric-cyan: #00D2FF;
+    --silver-mist: #E0E0E0;
+    --deep-violet: #3F3D56;
+    --neon-purple: #7B2CBF;
+}
+
+body {
+    background-color: var(--midnight-navy);
+    background-image:
+        radial-gradient(circle at 15% 50%, rgba(27, 39, 53, 0.8) 0%, transparent 50%),
+        radial-gradient(circle at 85% 30%, rgba(63, 61, 86, 0.6) 0%, transparent 50%),
+        radial-gradient(circle at 50% 0%, rgba(123, 44, 191, 0.2) 0%, transparent 60%);
+    font-family: var(--font-plus-jakarta), sans-serif;
+    color: var(--silver-mist);
+    overflow: hidden;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+@layer utilities {
+    .glass-card {
+        background: rgba(255, 255, 255, 0.03);
+        backdrop-filter: blur(30px) saturate(180%);
+        -webkit-backdrop-filter: blur(30px) saturate(180%);
+        border: 1.5px solid rgba(255, 255, 255, 0.18);
+
+        /* Liquid Glass Effect: Strong inset shadows create the "liquid" depth */
+        box-shadow:
+            /* External depth */
+            0 8px 32px rgba(0, 0, 0, 0.4),
+            /* Inner glow - creates the liquid "thickness" */
+            inset 0 0 30px rgba(255, 255, 255, 0.08),
+            /* Top highlight - simulates light catching the glass surface */
+            inset 0 2px 4px rgba(255, 255, 255, 0.25),
+            /* Bottom shadow - adds dimension */
+            inset 0 -2px 4px rgba(0, 0, 0, 0.2);
+
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        position: relative;
+        overflow: hidden;
+    }
+
+    .glass-card:hover {
+        background: rgba(255, 255, 255, 0.06);
+        border-color: rgba(0, 210, 255, 0.4);
+
+        /* Enhanced liquid effect on hover */
+        box-shadow:
+            /* Stronger lift */
+            0 20px 60px rgba(0, 0, 0, 0.5),
+            /* Cyan glow */
+            0 0 40px rgba(0, 210, 255, 0.3),
+            /* Stronger inner glow */
+            inset 0 0 40px rgba(255, 255, 255, 0.12),
+            /* Brighter top highlight */
+            inset 0 3px 6px rgba(255, 255, 255, 0.35),
+            /* Cyan inner glow for "liquid" effect */
+            inset 0 0 20px rgba(0, 210, 255, 0.1);
+    }
+
+    .glass-card-interactive:hover {
+        transform: translateY(-6px) scale(1.03);
+    }
+
+    .glass-card:hover .card-icon {
+        color: var(--electric-cyan);
+        filter: drop-shadow(0 0 12px rgba(0, 210, 255, 0.8));
+    }
+
+    .nav-link {
+        position: relative;
+        transition: color 0.3s ease;
+    }
+
+    .nav-link.active::after {
+        content: '';
+        position: absolute;
+        bottom: -8px;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background-color: var(--electric-cyan);
+        box-shadow: 0 0 10px 1px var(--electric-cyan);
+    }
+
+    .nav-link.active {
+        color: #fff;
+        text-shadow: 0 0 15px rgba(0, 210, 255, 0.5);
+    }
+
+    .matrix-grid {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        gap: 2rem;
+        max-width: 950px;
+        width: 100%;
+    }
+
+    .square-aspect {
+        aspect-ratio: 1 / 1;
+    }
+
+    .halo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 60%;
+        height: 60%;
+        background: radial-gradient(circle, rgba(0, 210, 255, 0.05) 0%, transparent 70%);
+        z-index: -1;
+        pointer-events: none;
+    }
+}
